@@ -1,0 +1,7 @@
+$patch: delete
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  labels:
+    control-plane: kubeflow-training-operator
+  name: validator.training-operator.kubeflow.org

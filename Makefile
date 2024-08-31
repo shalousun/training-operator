@@ -111,6 +111,10 @@ deploy: manifests kustomize ## Deploy controller to the K8s cluster specified in
 undeploy: ## Undeploy controller from the K8s cluster specified in ~/.kube/config.
 	$(KUSTOMIZE) build manifests/overlays/standalone | kubectl delete -f -
 
+deploy-local: manifests kustomize ## Deploy controller to the K8s cluster specified in ~/.kube/config.
+	cd manifests/overlays/local && $(KUSTOMIZE) edit set image kubeflow/training-operator=${IMG}
+	$(KUSTOMIZE) build manifests/overlays/local > local.yaml
+
 PROJECT_DIR := $(shell dirname $(abspath $(lastword $(MAKEFILE_LIST))))
 
 CONTROLLER_GEN = $(shell pwd)/bin/controller-gen
